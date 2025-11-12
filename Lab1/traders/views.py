@@ -2,8 +2,11 @@
 from django.http import HttpResponse
 from django.db import connections
 import time
+import cProfile
+import pstats
+import io
 from django.db.models import Q, F
-from .models import Order, Product, Customer, Employee
+from .models import *
 # Create your views here.
 
 def order_list(request):
@@ -111,3 +114,16 @@ def test_conn_max_age(request):
     default_conn.settings_dict['CONN_MAX_AGE'] = 60  
 
     return HttpResponse(f"Old max_age: {old_max_age}, New max_age: {default_conn.settings_dict['CONN_MAX_AGE']}")
+
+def profile_index_performance(request):
+    pr = cProfile.Profile()
+    pr.enable
+
+    indexed_customers = Customer.objects.filter(city__icontains="New")
+    non_indexed_customers = Customer.objects.filter(contactTitle__icontains="Manager")
+
+    pr.disable()
+
+    s = io.StringIO()
+    
+    return HttpResponse(s.getvalue())
