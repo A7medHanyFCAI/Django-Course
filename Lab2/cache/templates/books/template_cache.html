@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Template Cache Example</title>
+</head>
+<body>
+  {% load cache %}
+  <h2>Template Cache Example</h2>
+
+  {% cache 30 book_list %}
+  <ul>
+    {% for book in books %}
+      <li>{{ book.title }} - {{ book.author }}</li>
+    {% empty %}
+      <li>No books available.</li>
+    {% endfor %}
+  </ul>
+  {% endcache %}
+</body>
+</html>

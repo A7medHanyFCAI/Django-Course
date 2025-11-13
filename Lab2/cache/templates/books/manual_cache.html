@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Manual Cache Example</title>
+</head>
+<body>
+  <h2>Manual Cache Example</h2>
+  <ul>
+    {% for book in books %}
+      <li>{{ book.title }} - {{ book.author }}</li>
+    {% empty %}
+      <li>No books available.</li>
+    {% endfor %}
+  </ul>
+</body>
+</html>
